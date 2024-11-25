@@ -1,0 +1,55 @@
+"use strict";
+class Todo {
+    constructor(todo) {
+        this.id = todo.id;
+        this.title = todo.title;
+        this.status = todo.status;
+    }
+}
+class UI {
+    addTodoToList(todo) {
+        // console.log(todo, "addTodoToList");
+        const list = document.getElementById("todo-list");
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+                        <th>${todo.id}</th>
+                        <td>${todo.title}</td>
+                        <td><input type="checkbox" ${todo.status ? 'checked' : ''} class="form-check-input"></td>
+                        <td><button class="btn btn-sm btn-outline-danger" onclick="ui.removeTodo(event)">Delete</button></td>
+                        `;
+        list.appendChild(tr);
+    }
+    removeTodo(e) {
+        const element = e.target;
+        const pElement = element.parentElement;
+        const sElemrnt = pElement === null || pElement === void 0 ? void 0 : pElement.parentElement;
+        sElemrnt.innerHTML = ``;
+        //in element we get <button> tag,
+        // in pElement we get <td> tag,<td> tag is <button> parentElement
+        //and in sElement we get <tr> tag
+        //and in sElement.innerHTML =''; we replace <tr> tag with ''
+    }
+}
+const ui = new UI();
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("todo-form");
+    const title = document.getElementById("title");
+    const titleError = document.getElementById('title-error');
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (title.value.trim() === '') {
+            titleError.innerHTML = 'Title id required ...';
+        }
+        else {
+            titleError.innerHTML = '';
+            const todoObj = {
+                id: Math.round(Math.random() * 100),
+                title: title.value.trim(),
+                status: false
+            };
+            const todo = new Todo(todoObj);
+            ui.addTodoToList(todo);
+            title.value = ''; //for removing input after add task
+        }
+    });
+});
