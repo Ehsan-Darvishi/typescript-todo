@@ -24,7 +24,7 @@ class UI {
         tr.innerHTML =`
                         <th>${todo.id}</th>
                         <td>${todo.title}</td>
-                        <td><input type="checkbox" ${todo.status ? 'checked' : ''} class="form-check-input"></td>
+                        <td><input type="checkbox" ${todo.status ? "checked":""} class="form-check-input" onclick="Store.changeStatus(${todo.id})"></td>
                         <td><button class="btn btn-sm btn-outline-danger" onclick="ui.removeTodo(event ,${todo.id})">Delete</button></td>
                         `;
         list.appendChild(tr);
@@ -82,6 +82,16 @@ class Store{
     static deleteTodoById(id: number){
         const todos = Store.getTodo();//old todos
         const newTodos = todos.filter((todo) => todo.id !==id);//todos after delete todo by id
+        localStorage.setItem('todos' , JSON.stringify(newTodos));//save changes -> this code delete last todos and add newTodos
+    }
+
+    static changeStatus(id: number){
+        const todos = Store.getTodo();//old todos
+        const newTodos = todos.map((todo) => todo.id ===id ? {...todo,status: !todo.status}:todo);//find todo by id and if can find todo change status if cant find todo, this code return todo
+        //{...todo} => bring todo all data ->id-title-status
+        //status: !todo.status => if status=false ->status=true
+        //newTodo is updated todo object
+
         localStorage.setItem('todos' , JSON.stringify(newTodos));//save changes -> this code delete last todos and add newTodos
     }
 }
