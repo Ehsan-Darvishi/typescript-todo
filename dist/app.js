@@ -14,15 +14,17 @@ class UI {
                         <th>${todo.id}</th>
                         <td>${todo.title}</td>
                         <td><input type="checkbox" ${todo.status ? 'checked' : ''} class="form-check-input"></td>
-                        <td><button class="btn btn-sm btn-outline-danger" onclick="ui.removeTodo(event)">Delete</button></td>
+                        <td><button class="btn btn-sm btn-outline-danger" onclick="ui.removeTodo(event ,${todo.id})">Delete</button></td>
                         `;
         list.appendChild(tr);
+        //we can use ${todo.id} to pass todo id to RemoveTodo
     }
-    removeTodo(e) {
+    removeTodo(e, id) {
         const element = e.target;
         const pElement = element.parentElement;
         const sElemrnt = pElement === null || pElement === void 0 ? void 0 : pElement.parentElement;
         sElemrnt.innerHTML = ``;
+        Store.deleteTodoById(id);
         //in element we get <button> tag,
         //in pElement we get <td> tag,<td> tag is <button> parentElement
         //and in sElement we get <tr> tag
@@ -52,7 +54,12 @@ class Store {
     static addTodo(todo) {
         const todos = Store.getTodo();
         todos.push(todo);
-        localStorage.setItem('todos', JSON.stringify(todos));
+        localStorage.setItem('todos', JSON.stringify(todos)); //save change
+    }
+    static deleteTodoById(id) {
+        const todos = Store.getTodo(); //old todos
+        const newTodos = todos.filter((todo) => todo.id !== id); //todos after delete todo by id
+        localStorage.setItem('todos', JSON.stringify(newTodos)); //save changes -> this code delete last todos and add newTodos
     }
 }
 const ui = new UI();
