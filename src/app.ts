@@ -44,6 +44,16 @@ class UI {
         //in pElement we get <td> tag,<td> tag is <button> parentElement
         //and in sElement we get <tr> tag
         //and in sElement.innerHTML =''; we replace <tr> tag with ''
+
+        // Swal.fire({
+        //     title: "Todo item deleted",
+        //     icon: "error",
+        //     showConfirmButton: false,
+        //     timerProgressBar: true,
+        //     timer: 3000,
+        //     toast: true,
+        //     position: 'top',
+        //   });
     }
 }
 
