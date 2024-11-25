@@ -15,13 +15,10 @@ class Todo implements TodoInterface {
         this.title = todo.title;
         this.status = todo.status;
     }
-
-
 }
 
 class UI {
     addTodoToList(todo: TodoInterface){
-        // console.log(todo, "addTodoToList");
         const list =document.getElementById("todo-list")!;
         const tr = document.createElement('tr');
         tr.innerHTML =`
@@ -41,7 +38,7 @@ class UI {
         sElemrnt.innerHTML = ``;
 
         //in element we get <button> tag,
-        // in pElement we get <td> tag,<td> tag is <button> parentElement
+        //in pElement we get <td> tag,<td> tag is <button> parentElement
         //and in sElement we get <tr> tag
         //and in sElement.innerHTML =''; we replace <tr> tag with ''
     }
@@ -63,6 +60,16 @@ class Store{
         return todos;
     }
 
+    static displayTodos(){
+        const todos = Store.getTodo();
+
+        const ui = new UI();
+
+        todos.forEach((todo) => {
+            ui.addTodoToList(todo);
+        })
+    }
+
     static addTodo(todo: TodoInterface){
         const todos = Store.getTodo();
         todos.push(todo);
@@ -76,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("todo-form") as HTMLFormElement;
     const title = document.getElementById("title") as HTMLInputElement;
     const titleError =document.getElementById('title-error') as HTMLParagraphElement;
-    
+    Store.displayTodos();
 
     form.addEventListener("submit", (e: Event) => {
         e.preventDefault();

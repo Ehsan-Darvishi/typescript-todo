@@ -8,7 +8,6 @@ class Todo {
 }
 class UI {
     addTodoToList(todo) {
-        // console.log(todo, "addTodoToList");
         const list = document.getElementById("todo-list");
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -25,7 +24,7 @@ class UI {
         const sElemrnt = pElement === null || pElement === void 0 ? void 0 : pElement.parentElement;
         sElemrnt.innerHTML = ``;
         //in element we get <button> tag,
-        // in pElement we get <td> tag,<td> tag is <button> parentElement
+        //in pElement we get <td> tag,<td> tag is <button> parentElement
         //and in sElement we get <tr> tag
         //and in sElement.innerHTML =''; we replace <tr> tag with ''
     }
@@ -43,6 +42,13 @@ class Store {
         }
         return todos;
     }
+    static displayTodos() {
+        const todos = Store.getTodo();
+        const ui = new UI();
+        todos.forEach((todo) => {
+            ui.addTodoToList(todo);
+        });
+    }
     static addTodo(todo) {
         const todos = Store.getTodo();
         todos.push(todo);
@@ -54,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("todo-form");
     const title = document.getElementById("title");
     const titleError = document.getElementById('title-error');
+    Store.displayTodos();
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         if (title.value.trim() === '') {
