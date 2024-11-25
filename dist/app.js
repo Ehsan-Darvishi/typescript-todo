@@ -30,6 +30,25 @@ class UI {
         //and in sElement.innerHTML =''; we replace <tr> tag with ''
     }
 }
+class Store {
+    static getTodo() {
+        let todos;
+        if (localStorage.getItem('todos')) {
+            todos = JSON.parse(localStorage.getItem('todos'));
+            //We assure TypeScript that this variable has a value and is not empty or
+            //we can write as string instead of !
+        }
+        else {
+            todos = [];
+        }
+        return todos;
+    }
+    static addTodo(todo) {
+        const todos = Store.getTodo();
+        todos.push(todo);
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+}
 const ui = new UI();
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("todo-form");
@@ -49,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             const todo = new Todo(todoObj);
             ui.addTodoToList(todo);
+            Store.addTodo(todo); //becus is static, dont need to make object fo Store class, We can use the class directly.
             title.value = ''; //for removing input after add task
         }
     });

@@ -47,6 +47,29 @@ class UI {
     }
 }
 
+class Store{
+    static getTodo(): TodoInterface[] {
+        let todos: TodoInterface[];
+
+        if(localStorage.getItem('todos')){
+            todos =JSON.parse(localStorage.getItem('todos')!); 
+            //We assure TypeScript that this variable has a value and is not empty or
+            //we can write as string instead of !
+        }
+        else{
+            todos =[]
+        }
+
+        return todos;
+    }
+
+    static addTodo(todo: TodoInterface){
+        const todos = Store.getTodo();
+        todos.push(todo);
+        localStorage.setItem('todos' , JSON.stringify(todos))
+    }
+}
+
 const ui = new UI();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -70,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const todo = new Todo(todoObj);
 
             ui.addTodoToList(todo);
+            Store.addTodo(todo);//becus is static, dont need to make object fo Store class, We can use the class directly.
 
             title.value ='';//for removing input after add task
         }
