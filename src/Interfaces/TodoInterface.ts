@@ -1,8 +1,6 @@
-namespace app{
-    export interface TodoInterface {
-        id: number,
-        title: string,
-        status: boolean
-    }
+export interface TodoInterface {
+    id: number,
+    title: string,
+    status: boolean
 }
 
