@@ -1,5 +1,6 @@
-import { TodoInterface } from "../Interfaces/TodoInterface.js";
-import Store from "./Store.js";
+import { TodoInterface } from "../Interfaces/TodoInterface";
+import Store from "./Store";
+import Swal from 'sweetalert2';
 
 class UI {
     addTodoToList(todo: TodoInterface){
@@ -24,20 +25,20 @@ class UI {
 
         Store.deleteTodoById(id);
 
-        //in element we get <button> tag,
-        //in pElement we get <td> tag,<td> tag is <button> parentElement
-        //and in sElement we get <tr> tag
-        //and in sElement.innerHTML =''; we replace <tr> tag with ''
+        // in element we get <button> tag,
+        // in pElement we get <td> tag,<td> tag is <button> parentElement
+        // and in sElement we get <tr> tag
+        // and in sElement.innerHTML =''; we replace <tr> tag with ''
 
-        // Swal.fire({
-        //     title: "Todo item deleted",
-        //     icon: "error",
-        //     showConfirmButton: false,
-        //     timerProgressBar: true,
-        //     timer: 3000,
-        //     toast: true,
-        //     position: 'top',
-        //   });
+        Swal.fire({
+            title: "Todo item deleted",
+            icon: "error",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+          });
     }
 }
 

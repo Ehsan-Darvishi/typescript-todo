@@ -1,5 +1,6 @@
-import { TodoInterface } from "../Interfaces/TodoInterface.js";
-import UI from "./UI.js";
+import { TodoInterface } from "../Interfaces/TodoInterface";
+import UI from "./UI";
+import Swal from "sweetalert2";
 
 
 class Store{
@@ -46,8 +47,18 @@ class Store{
         //{...todo} => bring todo all data ->id-title-status
         //status: !todo.status => if status=false ->status=true
         //newTodo is updated todo object
-
+        
         localStorage.setItem('todos' , JSON.stringify(newTodos));//save changes -> this code delete last todos and add newTodos
+
+        Swal.fire({
+            title: "Status todo changed",
+            icon: "success",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+          });
     }
 }
 

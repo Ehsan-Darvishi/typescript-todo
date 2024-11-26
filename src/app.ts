@@ -1,7 +1,7 @@
-import { TodoInterface } from "./Interfaces/TodoInterface.js";
-import Todo from "./classes/Todo.js";
-import UI from "./classes/UI.js";
-import Store from "./classes/Store.js";
+import { TodoInterface } from "./Interfaces/TodoInterface";
+import Todo from "./classes/Todo";
+import UI from "./classes/UI";
+import Store from "./classes/Store";
 
 
 const form = document.getElementById("todo-form") as HTMLFormElement;

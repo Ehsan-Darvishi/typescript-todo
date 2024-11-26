@@ -1,4 +1,4 @@
-import UI from "./UI.js";
+import UI from "./UI";
 class Store {
     static getTodo() {
         let todos;

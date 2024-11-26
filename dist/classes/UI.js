@@ -1,4 +1,4 @@
-import Store from "./Store.js";
+import Store from "./Store";
 class UI {
     addTodoToList(todo) {
         const list = document.getElementById("todo-list");
